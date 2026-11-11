@@ -1,0 +1,553 @@
+/* ========================================================================
+   فرم‌ها — سفارش، تماس و پیام موفقیت
+   ======================================================================== */
+
+/* ---------- بخش سفارش ---------- */
+.order__grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(28px, 4vw, 60px);
+  align-items: start;
+}
+
+.order__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.order__steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.order__steps li > span {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--line-gold);
+  background: rgba(200, 169, 107, 0.08);
+  color: var(--gold-300);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.order__steps strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cream-50);
+}
+
+.order__steps small {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.78rem;
+  line-height: 1.9;
+  color: var(--text-muted);
+}
+
+.order__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.order__contactRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.88rem;
+  color: var(--text-soft);
+}
+
+.order__contactRow svg {
+  color: var(--gold-400);
+}
+
+.order__contactRow:hover {
+  color: var(--gold-200);
+}
+
+.order__panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(20px, 3vw, 34px);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--line);
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012));
+  box-shadow: var(--shadow-md);
+}
+
+.order__panel::before {
+  content: "";
+  position: absolute;
+  width: 60%;
+  height: 40%;
+  top: -18%;
+  inset-inline-end: -12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 169, 107, 0.14), transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+/* ---------- فرم ---------- */
+.form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.field--full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.field__req {
+  color: var(--gold-400);
+}
+
+.field__hint {
+  font-size: 0.74rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  outline: none;
+  transition: border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(244, 239, 230, 0.3);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: rgba(200, 169, 107, 0.55);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(200, 169, 107, 0.12);
+}
+
+.field input.is-invalid,
+.field select.is-invalid,
+.field textarea.is-invalid {
+  border-color: rgba(255, 122, 122, 0.55);
+  background: rgba(255, 90, 90, 0.06);
+}
+
+.field textarea {
+  min-height: 118px;
+  resize: vertical;
+  line-height: 1.95;
+}
+
+.field__select {
+  position: relative;
+}
+
+.field__select select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-inline-end: 38px;
+  cursor: pointer;
+}
+
+.field__select svg {
+  position: absolute;
+  inset-inline-end: 13px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.field__select option {
+  background: #0f1219;
+  color: var(--text);
+}
+
+.field__error {
+  font-size: 0.74rem;
+  color: #ff9d9d;
+}
+
+/* آپلود فایل */
+.upload {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.upload:hover {
+  border-color: var(--line-gold);
+  background: rgba(200, 169, 107, 0.05);
+}
+
+.upload.is-invalid {
+  border-color: rgba(255, 122, 122, 0.55);
+}
+
+.upload input[type="file"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.upload__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(200, 169, 107, 0.2);
+  background: rgba(200, 169, 107, 0.1);
+  color: var(--gold-300);
+}
+
+.upload__text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.upload__text strong {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--cream-100);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upload__text small {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.upload__btn {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line-gold);
+  color: var(--gold-300);
+  font-size: 0.74rem;
+  white-space: nowrap;
+}
+
+.form__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form__note {
+  font-size: 0.72rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.form__alert {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 120, 120, 0.35);
+  background: rgba(255, 80, 80, 0.08);
+  color: #ffb3b3;
+  font-size: 0.8rem;
+}
+
+/* پیام موفقیت */
+.form-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(24px, 4vw, 44px) 8px;
+  text-align: center;
+}
+
+.form-success__icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--grad-gold);
+  color: #191308;
+  box-shadow: 0 22px 44px -22px rgba(200, 169, 107, 0.85);
+  animation: popIn 0.5s var(--ease-out) both;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+
+.form-success__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--cream-50);
+}
+
+.form-success__text {
+  max-width: 46ch;
+  font-size: 0.9rem;
+  line-height: 2.05;
+  color: var(--text-muted);
+}
+
+/* ---------- تماس ---------- */
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(28px, 4vw, 64px);
+  align-items: center;
+}
+
+.contact__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.79rem;
+  font-weight: 600;
+  color: var(--gold-700);
+}
+
+.contact__kicker .kicker-line {
+  width: 30px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-600));
+}
+
+.contact__title {
+  margin-top: 14px;
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.5;
+  color: var(--text-dark);
+}
+
+.contact__lead {
+  margin-top: 14px;
+  max-width: 48ch;
+  font-size: 0.96rem;
+  line-height: 2.1;
+  color: var(--text-dark-muted);
+}
+
+.contact__rows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 20px;
+  margin-top: 26px;
+}
+
+.contact__rows li {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+}
+
+.contact__rowIcon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(200, 169, 107, 0.26);
+  background: rgba(200, 169, 107, 0.16);
+  color: var(--gold-700);
+}
+
+.contact__rows small {
+  display: block;
+  font-size: 0.7rem;
+  color: #7b756a;
+}
+
+.contact__rows strong,
+.contact__rows a {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.8;
+  color: var(--text-dark);
+}
+
+.contact__rows a:hover {
+  color: var(--gold-700);
+}
+
+.contact__socials {
+  margin-top: 26px;
+}
+
+.contact__socials .socials__link {
+  border-color: rgba(19, 21, 25, 0.14);
+  color: #46423b;
+}
+
+.contact__socials .socials__link:hover {
+  border-color: rgba(200, 169, 107, 0.55);
+  background: rgba(19, 21, 25, 0.04);
+  color: var(--gold-700);
+}
+
+.contact__card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(22px, 3vw, 34px);
+  border-radius: var(--r-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(160deg, #0d1017, #080a0f 70%);
+  box-shadow: 0 44px 84px -54px rgba(8, 10, 16, 0.75);
+  color: var(--text);
+}
+
+.contact__card::before {
+  content: "";
+  position: absolute;
+  width: 60%;
+  height: 34%;
+  top: -14%;
+  inset-inline-start: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 107, 255, 0.16), transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.contact__cardTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--cream-50);
+}
+
+.contact__cardText {
+  margin: 6px 0 18px;
+  font-size: 0.84rem;
+  line-height: 1.9;
+  color: var(--text-muted);
+}
+
+.form--compact {
+  gap: 12px;
+}
+
+.contact__sent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 0;
+  text-align: center;
+}
+
+.contact__sentIcon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--grad-gold);
+  color: #191308;
+}
+
+.contact__sent p {
+  font-size: 0.88rem;
+  line-height: 2;
+  color: var(--text-soft);
+}
+
+/* ---------- واکنش‌گرایی ---------- */
+@media (max-width: 1080px) {
+  .order__grid,
+  .contact__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact__rows {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .form__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact__rows {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .upload {
+    flex-wrap: wrap;
+  }
+
+  .upload__text {
+    flex-basis: calc(100% - 50px);
+  }
+
+  .upload__btn {
+    display: none;
+  }
+}

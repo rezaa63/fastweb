@@ -1,0 +1,474 @@
+/* ========================================================================
+   Hero — سینمایی و Scroll-driven
+   ======================================================================== */
+
+.hero {
+  position: relative;
+  /* فاصله‌ی اسکرول کافی برای تجربه‌ی کامل تایم‌لاین ویدیو (~۶ ثانیه) */
+  height: 300vh;
+  height: 300svh;
+  background: var(--ink-950);
+}
+
+.hero__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ---------- رسانه ---------- */
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__videoWrap {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__poster,
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__poster {
+  filter: saturate(0.95) brightness(0.9);
+}
+
+.hero__video {
+  /* ویدیو تا آماده شدن با پوستر cross-fade می‌شود تا قاب مشکی دیده نشود */
+  opacity: 0;
+  filter: saturate(1.02) contrast(1.03) brightness(0.94);
+  transition: opacity 0.6s var(--ease-out);
+}
+
+.hero__video.is-ready {
+  opacity: 1;
+}
+
+.hero__video.is-failed {
+  display: none;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at 78% 18%, rgba(46, 107, 255, 0.1) 0%, transparent 55%),
+    radial-gradient(90% 70% at 12% 88%, rgba(200, 169, 107, 0.1) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(6, 7, 10, 0.4) 0%, rgba(6, 7, 10, 0.08) 40%, rgba(6, 7, 10, 0.62) 100%);
+}
+
+.hero__scrim {
+  /* پرده‌ی تیره‌ی ملایم فقط پشت متن (سمت راست) تا تیتر روی ویدیو خوانا بماند */
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to left,
+    rgba(6, 7, 10, 0.82) 0%,
+    rgba(6, 7, 10, 0.58) 28%,
+    rgba(6, 7, 10, 0.12) 58%,
+    rgba(6, 7, 10, 0) 80%
+  );
+}
+
+.hero__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(82% 66% at 50% 46%, transparent 38%, rgba(4, 5, 8, 0.6) 100%);
+}
+
+.hero__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.55) 1px, transparent 1px);
+  background-size: 3px 3px;
+  mix-blend-mode: overlay;
+}
+
+.hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 168px 168px;
+  mask-image: radial-gradient(70% 60% at 50% 40%, #000 10%, transparent 78%);
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, #000 10%, transparent 78%);
+}
+
+.hero__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.hero__glow--blue {
+  width: 42vw;
+  height: 42vw;
+  top: -8%;
+  left: -6%;
+  background: radial-gradient(circle, rgba(46, 107, 255, 0.34), transparent 68%);
+  transform: translate3d(0, calc(var(--scroll-progress, 0) * -80px), 0);
+}
+
+.hero__glow--gold {
+  width: 34vw;
+  height: 34vw;
+  bottom: -12%;
+  right: -4%;
+  background: radial-gradient(circle, rgba(200, 169, 107, 0.26), transparent 70%);
+  transform: translate3d(0, calc(var(--scroll-progress, 0) * 60px), 0);
+}
+
+/* ---------- محتوا ---------- */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 22px;
+  padding-block: clamp(96px, 14vh, 160px) clamp(80px, 12vh, 130px);
+  max-width: min(1240px, 100%);
+  /* متن در ابتدای تجربه دیده می‌شود و پیش از رسیدن به نیمه‌ی ویدیو کامل محو می‌شود */
+  opacity: calc(1 - var(--scroll-progress, 0) * 2.6);
+  transform: translate3d(0, calc(var(--scroll-progress, 0) * -84px), 0);
+  will-change: transform, opacity;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(200, 169, 107, 0.32);
+  background: rgba(10, 12, 17, 0.42);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--cream-200);
+  font-size: 0.82rem;
+  letter-spacing: 0;
+  animation: heroFade 1s var(--ease-out) 0.15s both;
+}
+
+.hero__eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-500);
+  box-shadow: 0 0 12px rgba(200, 169, 107, 0.85);
+}
+
+.hero__eyebrowSep {
+  width: 1px;
+  height: 13px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hero__eyebrowName {
+  color: rgba(245, 239, 228, 0.72);
+}
+
+.hero__title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 21ch;
+}
+
+.hero__brand {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(3.1rem, 9.2vw, 7.4rem);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  background: linear-gradient(96deg, #fffdf7 8%, var(--gold-200) 42%, var(--gold-500) 72%, #9a7c42 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  animation: heroRise 1.05s var(--ease-out) 0.1s both;
+}
+
+.hero__tagline {
+  display: block;
+  font-size: clamp(1.02rem, 2.1vw, 1.62rem);
+  font-weight: 500;
+  line-height: 1.75;
+  color: var(--cream-100);
+  max-width: 26ch;
+  text-wrap: balance;
+  animation: heroRise 1.05s var(--ease-out) 0.24s both;
+}
+
+.hero__lead {
+  margin: 0;
+  max-width: 46ch;
+  font-size: clamp(0.94rem, 1.5vw, 1.06rem);
+  line-height: 2;
+  color: rgba(233, 227, 216, 0.74);
+  animation: heroRise 1.05s var(--ease-out) 0.36s both;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 6px;
+  animation: heroRise 1.05s var(--ease-out) 0.46s both;
+}
+
+.hero__marks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  color: rgba(233, 227, 216, 0.62);
+  font-size: 0.84rem;
+  animation: heroRise 1.05s var(--ease-out) 0.58s both;
+}
+
+.hero__marks li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero__marks svg {
+  color: var(--gold-400);
+}
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes heroFade {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- وضعیت بارگذاری ویدیو ---------- */
+.hero__loader {
+  position: absolute;
+  z-index: 3;
+  inset-inline-start: 50%;
+  bottom: clamp(26px, 6vh, 58px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(233, 227, 216, 0.6);
+  font-size: 0.74rem;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease-out);
+}
+
+.hero__loader.is-hidden {
+  opacity: 0;
+}
+
+.hero__loaderBar {
+  display: block;
+  width: 118px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+
+.hero__loaderBar span {
+  display: block;
+  width: 42%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--gold-400), transparent);
+  animation: loaderSweep 1.7s var(--ease-in-out) infinite;
+}
+
+@keyframes loaderSweep {
+  0% {
+    transform: translateX(-140%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+/* ---------- راهنمای اسکرول ---------- */
+.hero__scrollHint {
+  position: absolute;
+  z-index: 3;
+  bottom: clamp(18px, 4vh, 40px);
+  inset-inline-end: clamp(16px, 4vw, 54px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(233, 227, 216, 0.55);
+  font-size: 0.76rem;
+  letter-spacing: 0;
+  opacity: calc(1 - var(--scroll-progress, 0) * 6);
+}
+
+.hero__scrollLine {
+  display: block;
+  width: 46px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+}
+
+.hero__scrollLine span {
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--gold-400));
+  animation: scrollLine 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes scrollLine {
+  0% {
+    transform: translateX(-120%);
+  }
+  55%,
+  100% {
+    transform: translateX(280%);
+  }
+}
+
+/* ---------- موبایل ---------- */
+@media (max-width: 720px) {
+  .hero {
+    /* مسیر کمی کوتاه‌تر روی موبایل تا تجربه خسته‌کننده نشود */
+    height: 260vh;
+    height: 260svh;
+  }
+
+  .hero__stage {
+    min-height: 540px;
+  }
+
+  .hero__content {
+    gap: 16px;
+    justify-content: flex-end;
+    padding-bottom: clamp(72px, 11vh, 110px);
+  }
+
+  .hero__title {
+    max-width: 100%;
+  }
+
+  .hero__tagline {
+    max-width: 30ch;
+    font-size: 1.02rem;
+    line-height: 1.85;
+  }
+
+  .hero__eyebrow {
+    font-size: 0.72rem;
+    padding: 8px 12px;
+  }
+
+  .hero__marks {
+    display: none;
+  }
+
+  .hero__actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero__scrim {
+    background: linear-gradient(
+      to top,
+      rgba(6, 7, 10, 0.9) 0%,
+      rgba(6, 7, 10, 0.66) 42%,
+      rgba(6, 7, 10, 0.2) 74%,
+      rgba(6, 7, 10, 0) 100%
+    );
+  }
+
+  .hero__loader {
+    bottom: 46px;
+  }
+
+  .hero__scrollHint {
+    inset-inline-end: auto;
+    inset-inline-start: 50%;
+    transform: translateX(50%);
+    bottom: 18px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .hero__stage {
+    position: relative;
+    height: 100svh;
+  }
+
+  .hero__content,
+  .hero__scrollHint {
+    transform: none;
+    opacity: 1;
+  }
+
+  .hero__loader {
+    display: none;
+  }
+
+  .hero__brand,
+  .hero__tagline,
+  .hero__lead,
+  .hero__actions,
+  .hero__marks,
+  .hero__eyebrow {
+    animation: none;
+  }
+}

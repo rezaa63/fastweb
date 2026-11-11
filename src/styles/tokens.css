@@ -1,0 +1,90 @@
+/* ========================================================================
+   FastWeb96 — توکن‌های طراحی (رنگ، فونت، فاصله، سایه)
+   ======================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* مشکی‌های عمیق */
+  --ink-950: #06070a;
+  --ink-900: #080a0f;
+  --ink-850: #0b0e14;
+  --ink-800: #10141c;
+  --ink-750: #151a24;
+  --ink-700: #1b212d;
+
+  /* کرم / Ivory */
+  --cream-50: #fcf9f3;
+  --cream-100: #f6f0e5;
+  --cream-200: #ece2d0;
+  --cream-300: #d9cdb6;
+  --cream-400: #b8ab93;
+
+  /* طلایی لوکس */
+  --gold-100: #f6ecd4;
+  --gold-200: #ebdcb6;
+  --gold-300: #ddc898;
+  --gold-400: #d0b47c;
+  --gold-500: #c8a96b;
+  --gold-600: #a98b4f;
+  --gold-700: #7f6636;
+
+  /* آبی مدرن */
+  --blue-300: #8fb0ff;
+  --blue-400: #5b8cff;
+  --blue-500: #2e6bff;
+  --blue-600: #1d4fd8;
+  --blue-700: #13306b;
+
+  /* متن */
+  --text: #f4efe6;
+  --text-soft: #d9d3c8;
+  --text-muted: #a29c90;
+  --text-dark: #131519;
+  --text-dark-muted: #5b564d;
+
+  /* خطوط و شیشه */
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --line-gold: rgba(200, 169, 107, 0.32);
+  --glass: linear-gradient(160deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015));
+  --glass-strong: linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025));
+
+  /* گرادیان‌های ظریف */
+  --grad-gold: linear-gradient(135deg, #f0dcb0 0%, var(--gold-500) 52%, #a9854c 100%);
+  --grad-gold-text: linear-gradient(100deg, #fffaf0 0%, var(--gold-200) 38%, var(--gold-500) 74%, #9b7d43 100%);
+  --grad-blue: linear-gradient(135deg, var(--blue-400), var(--blue-600));
+  --grad-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0) 60%);
+
+  /* سایه */
+  --shadow-sm: 0 10px 24px -16px rgba(0, 0, 0, 0.8);
+  --shadow-md: 0 24px 60px -32px rgba(0, 0, 0, 0.9);
+  --shadow-lux: 0 40px 100px -44px rgba(0, 0, 0, 0.95);
+  --shadow-gold: 0 18px 44px -18px rgba(200, 169, 107, 0.5);
+
+  /* شعاع گوشه */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 26px;
+  --r-xl: 34px;
+  --r-pill: 999px;
+
+  /* تایپوگرافی */
+  --font-body: "Vazirmatn", "Vazir", "IRANSans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Vazirmatn", "Vazir", "IRANSans", system-ui, sans-serif;
+  --font-mono: "SFMono-Regular", ui-monospace, "Cascadia Mono", monospace;
+
+  /* حرکت */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.22s;
+  --dur: 0.38s;
+  --dur-slow: 0.75s;
+
+  /* چیدمان */
+  --container: 1240px;
+  --gutter: clamp(20px, 5vw, 48px);
+  --section-y: clamp(72px, 9vw, 132px);
+  --nav-h: 78px;
+}
