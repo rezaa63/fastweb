@@ -17,7 +17,7 @@ const basePath = "/fastweb/";
  * be served by any host or CDN on any domain.
  */
 export default defineConfig({
-  base: basePath,
+  base: base: '/',
   plugins: [react()],
   server: {
     host: "0.0.0.0",
