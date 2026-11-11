@@ -1,7 +1,7 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
-const basePath = process.env.VITE_BASE_PATH || "/";
+const basePath = "/fastweb/";
 
 /**
  * Development/preview server configuration.
