@@ -1,4 +1,6 @@
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ChatWidget from "./components/ChatWidget";
 import { Footer } from "./components/Footer";
 import { Navbar } from "./components/Navbar";
 import { ScrollManager } from "./components/ScrollManager";
@@ -12,7 +14,6 @@ import { PortfolioPage } from "./pages/PortfolioPage";
 import { ProjectPage } from "./pages/ProjectPage";
 import { ServicesPage } from "./pages/ServicesPage";
 
-/** ریشه‌ی مسیرها؛ در انتشار زیرمسیر (GitHub Pages) برابر `/<زیرمسیر>` می‌شود */
 const basename = import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
       </main>
       <Footer />
       <ScrollTopButton />
+      <ChatWidget />
       <div className="site-watermark" aria-hidden="true">
         reza akbari
       </div>
